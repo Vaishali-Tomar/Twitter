@@ -1,17 +1,21 @@
-import express from "express";
-import dotenv from "dotenv";
-import authRoute from "./routes/auth.js"; // ensure correct casing here
-import connectMongoDB from "./db/connectMongoDB.js";
+import express from 'express';
+import dotenv from 'dotenv';
+import authRoute from './routes/auth.js';
+import cookieParser from "cookie-parser";
+import connectMongoDB from './db/connectMongoDB.js';
 
 const app = express();
- dotenv.config(
- );
-app.use("/api/auth", authRoute);
 
-//console.log(process.env.MONGO_URI);
+const PORT = process.env.PORT || 7000;
+dotenv.config();
 
-app.listen(8000, () => {
-    console.log(`server is up and running at port 8000`);
+// Middleware to parse JSON bodies
+app.use(express.json());
+app.use(cookieParser());
 
-    connectMongoDB();
+app.use('/api/auth', authRoute);
+
+app.listen(PORT, () => {
+  console.log(`Server is up and running at port ${PORT}`);
+  connectMongoDB();
 });
