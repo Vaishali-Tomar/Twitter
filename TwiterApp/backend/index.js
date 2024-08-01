@@ -5,7 +5,9 @@ import userRoute from "./routes/user.js";
 import cookieParser from "cookie-parser";
 import connectMongoDB from './db/connectMongoDB.js';
 import postRoute from "./routes/post.js"; // Corrected import statement
+import notificationRoute from "./routes/notification.js";
 import {v2 as cloudinary} from "cloudinary";
+
 
 const app = express();
 
@@ -25,6 +27,7 @@ app.use(cookieParser());
 app.use('/api/auth', authRoute);
 app.use("/api/user", userRoute);
 app.use("/api/post", postRoute);
+app.use("/api/notification", notificationRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is up and running at port ${PORT}`);
